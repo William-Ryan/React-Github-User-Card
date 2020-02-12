@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
+import Card from "./components/Card.js";
+import FollowerCard from "./components/FollowerCard.js";
+import FollowerList from "./components/FollowerList.js";
 
-function App() {
+class App extends React.Component {
+  state = {
+    userData: [],
+    followerData: [],
+    err: ""
+  };
+
+  componentDidMount() {
+    axios.get('https://api.github.com/users/carlsachs')
+    .then(res => {
+      console.log(res);
+      this.setState({
+        userData: res.data
+      });
+    })
+    .catch(err => {
+      console.log("There's an error", err)
+    });
+
+    axios.get('https://api.github.com/users/carlsachs/followers')
+    .then(res => {
+      console.log("data" , res)
+      this.setState({
+        followerData: res.data
+      });
+    })
+    .catch(err => {
+      console.log("There's an error", err)
+    });
+  }
+
+  render() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>GitHub User Card</h1>
+      <Card userData={this.state.userData}/>
+      <FollowerList followerData={this.state.followerData}/>
     </div>
   );
+}
 }
 
 export default App;

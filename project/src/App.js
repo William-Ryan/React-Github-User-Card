@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Card from "./components/Card.js";
+import UserCard from "./components/Card.js";
 import FollowerList from "./components/FollowerList.js";
 
 class App extends React.Component {
@@ -38,7 +38,7 @@ class App extends React.Component {
   return (
     <div className="App">
       <h1>GitHub User Card</h1>
-      <Card userData={this.state.userData}/>
+      <UserCard userData={this.state.userData}/>
       <FollowerList followerData={this.state.followerData}/>
     </div>
   );

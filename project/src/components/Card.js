@@ -1,13 +1,46 @@
-import React from "react";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-const Card = props => {
-    return (
-        <div>
-            {/* <img src={props.userDate.avatar_url}/> */}
-            <h2>{props.userData.login}</h2>
-            <h3>Repos: {props.userData.repos_url}</h3>
-            <h3>Followers: {props.userData.followers}</h3>
-        </div>
-    )
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+    background: 'grey'
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
+export default function UserCard(props) {
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+
+  return (
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {props.userData.login}
+        </Typography>
+        <Typography variant="h5" component="h2">
+            Repos: {props.userData.repos_url}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+            Followers: {props.userData.followers}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
 }
-export default Card; 
